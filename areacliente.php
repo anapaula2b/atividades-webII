@@ -9,26 +9,17 @@
     session_start();
 
     
-    if((!isset ($_SESSION['login']) == true) and (!isset ($_SESSION['senha']) == true)){
+    if((!isset ($_SESSION['usuario']) == true) and (!isset ($_SESSION['senha']) == true)){
 
         header('location:index.php');
     }
 
-    $logado = $_SESSION['login'];
+    $logado = $_SESSION['usuario'];
     ?>
 </head>
 <body>
     <?php
-
-    if (isset($_SESSION['login'])){
-        
         echo "Você está na área de cliente";
-    }
-
-    else{
-        echo "Você não está autorizado(a) a acessar esta página. Faça o login";
-    }
-
     ?>
 </body>
 </html>
