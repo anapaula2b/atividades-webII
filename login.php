@@ -3,14 +3,15 @@
 
 	function criarSessao($usuario){
 		session_start();
-		$_SESSION['usuario'] = $usuario;
-		header(Location:participantes/areaparticipante.php); 
+		$_SESSION["login"] = $_POST["login"];
+		header('Location:areacliente.php');
 		exit;
 	}
 
 	if (isset($_POST['login'])) {
 		$usuario = $_POST['usuario'];
 		$senha = $_POST['senha'];
+
 
 		try {
 			$bd = new PDO("mysql:host=localhost; dbname=secitec", 'ifpb', 'ifpb');
