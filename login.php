@@ -1,34 +1,38 @@
+
 <?php
+	$login = $_POST['usuario'];
+	$senha = $_POST['senha'];
 
+	$servername = "localhost";
+	$username = "ifpb";
+	$password = "ifpb";
+	$dbname = "secitec";
 
-	function criarSessao($usuario){
-		session_start();
-		$_SESSION["login"] = $_POST["login"];
-		header('Location:areacliente.php');
-		exit;
+	// Create connection
+	$conn = new mysqli($servername, $username, $password, $dbname);
+	// Check connection
+	if ($conn->connect_error) {
+		die("Connection failed: " . $conn->connect_error);
 	}
 
-	if (isset($_POST['login'])) {
-		$usuario = $_POST['usuario'];
-		$senha = $_POST['senha'];
+	$sql = "SELECT usuario, senha FROM usuario WHERE usuario = '$login' AND senha = '$senha'";
+	$result = $conn->query($sql);
 
+	if ($result->num_rows > 0) {
 
-		try {
-			$bd = new PDO("mysql:host=localhost; dbname=secitec", 'ifpb', 'ifpb');
-			$consulta = "select usuario, senha from usuario where usuario = '$usuario' and senha = '$senha'"; 
-
-			foreach ($bd->query($consulta) as $tupla) {
-				criarSessao($usuario);
-			}
-
-		}
-		catch(PDOException $e) {
-			echo $e->getMessage();
+			$_SESSION['usuario'] = $login;
+			$_SESSION['senha'] = $senha;
+			header('location:areacliente.php');
 			
-		}
-
 	}
+		else {
+		echo "0 results";
+		unset ($_SESSION['usuario']);
+		unset ($_SESSION['senha']);
+		header('location:login.html');
+	}
+	$conn->close();
 
-	include "login.html";
 
 ?>
+
