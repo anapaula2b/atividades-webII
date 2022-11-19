@@ -1,0 +1,15 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+}
+
+
+.btn_enviar {
+    margin-top: 10%;
+}
+
+.radio {
+    margin-top: 3%;
+}
